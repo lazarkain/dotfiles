@@ -1,28 +1,20 @@
+#move floating window with a mouse 
+floating_modifier $mod
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+Tab workspace back_and_forth
 smart_borders on
+popup_during_fullscreen smart
 # Set inner/outer gaps
-gaps inner 2
+gaps inner 1
 gaps outer 1
-font xft: SF Pro Display 12:
-#for_window [class="[ncmpcpp]"] floating enable
 #start with i3
-exec --no-startup-id nm-applet # ovo pali network wifi
+exec --no-startup-id nm-applet # wifi 
 exec --no-startup-id blueman-applet # bt
 exec --no-startup-id pavucontrol;workspace $ws8;focus
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-power-manager
-exec --no-startup-id /home/lkebic/.config/scripts/i3.fiber/alternating_layouts.py
-#bar {
-#	font pango:mono 13
-       # status_command i3blocks
-#	position top
-#	mode dock
-#	modifier None
-#}
-popup_during_fullscreen smart
-
+exec --no-startup-id $HOME/.config/scripts/i3.fiber/alternating_layouts.py
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
  	#Colours
  	set $bg-color 	         #2f343f
@@ -30,7 +22,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
  	set $text-color          #99CCFF
  	set $inactive-text-color #676E7D
  	set $urgent-bg-color     #2f343f
- 	set $windowcolor	     #A11581
+ 	set $windowcolor	 #A11581
 #workspace screen locations
 	#Left   = HDMI-1
 	#Right  = DP-2-2
@@ -88,15 +80,21 @@ bindsym $mod+Control+7 move container to workspace 7; workspace 7
 bindsym $mod+Control+8 move container to workspace 8; workspace 8
 bindsym $mod+Control+9 move container to workspace 9; workspace 9
 bindsym $mod+Control+0 move container to workspace 0; workspace 10
+###resize#
+bindsym $mod+Mod1+Right resize shrink width 50 px or 2 ppt
+bindsym $mod+Mod1+Up resize grow height 50 px or 2 ppt
+bindsym $mod+Mod1+Down resize shrink height 50 px or 2 ppt
+bindsym $mod+Mod1+Left resize grow width 50 px or 2 ppt
 # #---Arrow Keys---# #
 bindsym $mod+Left		focus left
 bindsym $mod+Down		focus down
 bindsym $mod+Up			focus up
 bindsym $mod+Right 		focus right
-bindsym $mod+Shift+Left		move left    35
-bindsym $mod+Shift+Down		move down    35
-bindsym $mod+Shift+Up		move up      35
-bindsym $mod+Shift+Right 	move right   35
+###-- ###
+bindsym $mod+Shift+Left		move left    40
+bindsym $mod+Shift+Down		move down    40
+bindsym $mod+Shift+Up		move up      40
+bindsym $mod+Shift+Right 	move right   40
 #scratchpad
 bindsym F12 move scratchpad
 bindsym F11 scratchpad show
@@ -142,8 +140,6 @@ for_window [instance="dropdown_*"] move position center
 bindsym $mod+Shift+d exec --no-startup-id rofi -show drun
 #bindsym $mod+Tab   exec "rofi -ddshow window"
 bindsym $mod+d                  exec --no-startup-id rofi -show run
-#bindsym $mod+d exec --no-startup-id ~/.config/rofi/scripts/.sh
-# #---Media Keys---# #
 # Volume keys
 bindsym $mod+plus		exec --no-startup-id amixer sset Master 3%+ && pkill -RTMIN+10 i3blocks
 bindsym $mod+Shift+plus		exec --no-startup-id amixer sset Master 10%+ && pkill -RTMIN+10 i3blocks
@@ -156,10 +152,7 @@ bindsym $mod+greater		exec --no-startup-id mpc next
 bindsym $mod+Shift+greater	exec --no-startup-id mpc next
 bindsym $mod+Shift+Return	exec --no-startup-id samedir
 bindsym $mod+Shift+m    	exec --no-startup-id amixer sset Master 100%- && pkill -RTMIN+10 i3blocks
-
-#####
 bindsym $mod+Return		exec --no-startup-id $term
-####
 bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space		focus mode_toggle
 bindsym $mod+Escape		workspace prev
@@ -170,43 +163,21 @@ bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 #bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 bindsym $mod+t			split toggle
 bindsym $mod+o			sticky toggle
-bindsym $mod+a			exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
 bindsym $mod+x			exec --no-startup-id "i3lock -c 000000"
 bindsym $mod+e                  exec --no-startup-id nautilus
 bindsym $mod+f			fullscreen toggle
-bindsym $mod+j			focus down
-bindsym $mod+Shift+j		move down 30
-bindsym $mod+Ctrl+j		move workspace to output down
-bindsym $mod+k			focus up
-bindsym $mod+Shift+k		move up 30
-bindsym $mod+Ctrl+k		move workspace to output up
-bindsym $mod+l			focus right
-bindsym $mod+Shift+l		move right 30
-bindsym $mod+Ctrl+l		move workspace to output right
-bindsym $mod+z			gaps outer current plus 5
-bindsym $mod+Shift+z		gaps outer current minus 5
 bindsym $mod+c			exec --no-startup-id gnome-calendar
 bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
 bindsym $mod+b			bar mode toggle
-bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left
+bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id hover left down
 bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id hover right
 # #---Workspace Bindings---# #
-bindsym $mod+Home		workspace $ws1
-bindsym $mod+Shift+Home		move container to workspace $ws1
-bindsym $mod+End		workspace $ws10
-bindsym $mod+Shift+End		move container to workspace $ws10
-bindsym $mod+Prior		workspace prev
-bindsym $mod+Shift+Prior	move container to workspace prev
-bindsym $mod+Next		workspace next
-bindsym $mod+Shift+Next		move container to workspace next
 #bindsym $mod+Tab		workspace back_and_forth
 bindsym $mod+XF86Back		workspace prev
 bindsym $mod+Shift+XF86Back	move container to workspace prev
 bindsym $mod+XF86Forward	workspace next
 bindsym $mod+Shift+XF86Forward	move container to workspace next
 bindsym $mod+semicolon		workspace next
-bindsym $mod+apostrophe		split horizontal ;; exec $term
-bindsym $mod+slash		split vertical ;; exec $term
 bindsym $mod+Shift+slash	kill
 bindsym $mod+backslash		workspace back_and_forth
 for_window [class="Pinentry"] sticky enable
@@ -235,7 +206,4 @@ assign [class="(?i)Default - Wine desktop"] $ws10
 for_window [title="GIMP Startup"] move workspace $ws5
 # sticky window toggle
 bindsym $mod+Shift+s sticky toggle
-#bindsym $mod+Shift+s  surf www.youtube.com
-#bindsym $mod+Shift+m		exec --no-startup-id lmc toggle
-#for_window [class="3-5-0-0"] floating enable
 bindsym $mod+m 		        exec --no-startup-id $term -e ncmpcpp
